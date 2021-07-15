@@ -2,12 +2,6 @@ const TelegramBot = require('node-telegram-bot-api');
 
 const token = '1856550109:AAEHMOGptiW1WeYAyZA4gTsTcq3qCnutiwU';
 
-// const stream = bot.sendAudio(chatId, '/Music/musica/Circle.mp3');
-
-// const bot = new TelegramBot(token, {
-//     filepath: false,
-//   });
-
 const bot = new TelegramBot(token, {polling: true});
 
 bot.on('message',(msg) =>{
@@ -48,16 +42,28 @@ bot.on('message',(msg) =>{
         bot.sendMessage(msg.chat.id,h +" dias restantes até o natal")
     }
 
-//    var alerta = "alerte";
-//    if(text.toLowerCase().includes(alerta)){
-//         bot.sendAudio(chatId, stream);
-//    }
-   
-    //para grupo se alguem fala idiota o bot remove este
-    // var what = "idiota";
-    // if (msg.text.includes(what)) {
-    //     bot.kickChatMember(msg.chat.id,  msg.from.id);
-    //     }
+
+    const lista2 = {
+        'red': ()=>  bot.sendMessage(msg.chat.id, "há você gosta da cor vermelha?"),
+        'green': ()=>  bot.sendMessage(msg.chat.id, "há você gosta da cor verde?"),
+        'purple': ()=>  bot.sendMessage(msg.chat.id, "há você gosta da cor roxa?"),
+        'orange': ()=>  bot.sendMessage(msg.chat.id, "há você gosta da cor laranja?"),
+        'pink': ()=>  bot.sendMessage(msg.chat.id, "há você gosta da cor rosa?"),
+        'gold': ()=>  bot.sendMessage(msg.chat.id, "há você gosta da cor de ouro?"),
+        'blue': ()=>  bot.sendMessage(msg.chat.id, "há você gosta da cor azul?"),
+        'idiota': ()=> bot.sendMessage(msg.chat.id, "eu não sou idiota ;-;")
+    }
+
+    let chave = Object.keys(lista2);
+    for(let i = 0; i < chave.length; i++){
+        //console.log(chave[i])
+        let novvo = '';
+        if(text.toString().toLowerCase().includes(chave[i])){
+            novvo = chave[i];
+            lista2[novvo]();
+            //console.log(chave[i]);
+        }
+    }
    
 });
 
@@ -79,8 +85,6 @@ bot.onText(/\/começar/, (msg) => {
         "keyboard": [["/start", "/sobre"],   ["/sair"], ["você é um robô"]]
         }
     });
-
-    
-        
+  
     });
 
